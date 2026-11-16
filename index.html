@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conceitos | Lab de Segurança Web</title>
+<link rel="stylesheet" href="assets/estilo.css">
+
+</head>
+<body class="home">
+<a class="skip" href="#conteudo">Ir para o conteúdo</a>
+<header class="site-header"><div class="wrap top">
+<a class="brand" href="index.html"><span class="mark" aria-hidden="true">&lt;/&gt;</span> Lab de Segurança Web</a>
+<nav aria-label="Navegação principal"><a href="index.html" aria-current="page">Conceitos</a><a href="laboratorios.html">Laboratórios</a><a href="desafio.html">Desafio</a></nav>
+</div></header>
+<main id="conteudo" class="wrap">
+<section class="hero intro home-hero">
+  <div class="hero-copy">
+    <p class="eyebrow">Guia da aula</p>
+    <h1>Segurança em<br>aplicações web</h1>
+    <p class="lead">Entenda como uma aplicação confirma identidades, controla permissões e protege senhas. Use testes para verificar essas regras e refatore o código com confiança.</p>
+    <div class="actions"><a class="button" href="laboratorios.html">Abrir laboratórios <span aria-hidden="true">↗</span></a><a class="subtle-link" href="#conceitos">Ver conceitos ↓</a></div>
+  </div>
+  <aside class="hero-panel outcomes" aria-labelledby="objetivo">
+    <h2 id="objetivo">Objetivo da aula</h2>
+    <p>Aplicar autenticação e autorização em uma aplicação web e melhorar a organização do código, verificando o resultado com testes.</p>
+    <ul>
+      <li>Distinguir identidade, perfil e permissão.</li>
+      <li>Explicar a verificação de senhas com BCrypt.</li>
+      <li>Interpretar respostas HTTP e conferir o estado dos dados.</li>
+      <li>Refatorar e registrar as mudanças no Git.</li>
+    </ul>
+  </aside>
+</section>
+<section class="home-section" id="conceitos" aria-labelledby="definitions">
+  <h2 id="definitions">Conceitos da aula</h2>
+  <div class="cards">
+    <article><h3>Autenticação</h3><p>Verifica a identidade de quem acessa uma aplicação. Um login com usuário e senha é uma forma de fazer essa verificação.</p><details><summary>Quando a identificação falha?</summary><p>Em uma API que exige credenciais, o código HTTP 401 indica que credenciais válidas estão ausentes.</p></details></article>
+    <article><h3>Autorização</h3><p>Verifica se a identidade tem permissão para executar uma operação. O servidor aplica a regra de acesso a cada requisição protegida.</p><details><summary>Quando a permissão é insuficiente?</summary><p>Uma API pode responder com HTTP 403 quando a conta foi identificada e seu perfil não permite a operação.</p></details></article>
+    <article><h3>Hash de senha e BCrypt</h3><p>O BCrypt gera um hash com um salt aleatório. A aplicação usa o hash armazenado para conferir se a senha informada corresponde à original.</p><details><summary>Qual é a função do salt?</summary><p>O salt faz com que uma mesma senha possa gerar hashes diferentes. Ele é armazenado como parte da representação do hash.</p></details></article>
+    <article><h3>Spring Security</h3><p>Oferece componentes para proteger aplicações Java com Spring. A equipe usa esses componentes para verificar credenciais e aplicar regras de acesso.</p><details><summary>Onde definir uma permissão?</summary><p>A política de acesso pode definir quais perfis têm permissão para requisitar uma operação protegida.</p></details></article>
+    <article><h3>Clean Code e refatoração</h3><p>Nomes claros e responsabilidades bem definidas ajudam a localizar as regras. A refatoração melhora a estrutura interna e preserva o comportamento observado.</p><details><summary>Como verificar uma refatoração?</summary><p>Rode os mesmos testes antes e depois da mudança e compare os resultados esperados.</p></details></article>
+    <article><h3>Testes de acesso e Git</h3><p>Teste operações permitidas e recusadas. Confira o código HTTP e o estado dos dados. Depois, use o Git para registrar as mudanças verificadas.</p><details><summary>O que o status HTTP mostra?</summary><p>Ele resume o resultado da requisição. Uma consulta adicional pode confirmar se o registro foi alterado ou preservado.</p></details></article>
+  </div>
+</section>
+<section class="home-section references" aria-labelledby="fontes">
+  <h2 id="fontes">Sites de referência</h2>
+  <div class="reference-list">
+    <article><h3>Spring Security</h3><p>Regras de acesso por requisição e uso de BCrypt no armazenamento de senhas.</p><div class="actions"><a href="https://docs.spring.io/spring-security/reference/servlet/authorization/authorize-http-requests.html" target="_blank" rel="noopener">Autorização ↗</a><a href="https://docs.spring.io/spring-security/reference/features/authentication/password-storage.html" target="_blank" rel="noopener">Senhas ↗</a></div></article>
+    <article><h3>OWASP</h3><p>Práticas de armazenamento de senhas, função do salt e critérios de escolha de algoritmos.</p><a href="https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html" target="_blank" rel="noopener">Guia de armazenamento ↗</a></article>
+    <article><h3>Postman</h3><p>Como enviar requisições e interpretar o status e o corpo da resposta HTTP.</p><a href="https://learning.postman.com/docs/use/send-requests/requests" target="_blank" rel="noopener">Documentação de requisições ↗</a></article>
+    <article><h3>Martin Fowler</h3><p>Definição de refatoração e exemplos de melhoria da estrutura do código.</p><a href="https://www.refactoring.com/" target="_blank" rel="noopener">Referência sobre refatoração ↗</a></article>
+    <article><h3>Pro Git</h3><p>Como revisar arquivos, preparar alterações e registrar um commit.</p><a href="https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository.html" target="_blank" rel="noopener">Registro de alterações ↗</a></article>
+  </div>
+</section>
+</main>
+<footer class="wrap footer"><span>Lab de Segurança Web</span><span>Professor Rodrigo Moreira</span></footer>
+</body></html>

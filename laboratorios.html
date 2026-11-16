@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Laboratórios | Lab de Segurança Web</title>
+<link rel="stylesheet" href="assets/estilo.css">
+<script defer src="assets/portal.js"></script><script defer src="assets/labs.js"></script>
+</head>
+<body>
+<a class="skip" href="#conteudo">Ir para o conteúdo</a>
+<header class="site-header"><div class="wrap top">
+<a class="brand" href="index.html"><span class="mark" aria-hidden="true">&lt;/&gt;</span> Lab de Segurança Web</a>
+<nav aria-label="Navegação principal"><a href="index.html">Conceitos</a><a href="laboratorios.html" aria-current="page">Laboratórios</a><a href="desafio.html">Desafio</a></nav>
+</div></header>
+<main id="conteudo" class="wrap">
+<section class="hero compact"><h1>Laboratórios</h1><p class="lead">Faça uma previsão, execute o cenário e confira o resultado com a turma. As demonstrações usam dados fictícios e funcionam no navegador.</p></section>
+<div class="lab-layout">
+<aside><nav class="side panel" aria-label="Ir ao laboratório"><a href="#acesso">Controle de acesso</a><a href="#hash">Hash de senha</a><a href="#refatoracao">Clean Code</a><a href="#git">Git</a></nav></aside>
+<div class="lab-stack">
+<section class="panel lab" id="acesso">
+<h2>Controle de acesso</h2><p>Selecione um perfil e uma ação. Observe a resposta da API simulada e o estado da vaga. Após testar uma exclusão como operador, confira se a vaga segue disponível.</p>
+<div class="workbench">
+  <div class="workbench-head"><strong>Cliente HTTP</strong><span>Ambiente simulado</span></div>
+  <div class="workbench-body">
+    <div class="actions presets" aria-label="Cenários de teste">
+      <button type="button" class="secondary" data-profile="anonimo" data-operation="consultar">Sem credenciais</button>
+      <button type="button" class="secondary" data-profile="invalido" data-operation="consultar">Senha inválida</button>
+      <button type="button" class="secondary" data-profile="operador" data-operation="excluir">Excluir como operador</button>
+      <button type="button" class="secondary" data-profile="admin" data-operation="excluir">Excluir como admin</button>
+    </div>
+    <form id="api-form">
+      <div class="request-row">
+        <div><label for="operacao">Método HTTP</label><select id="operacao"><option value="consultar">GET</option><option value="cadastrar">POST</option><option value="alterar">PATCH</option><option value="excluir">DELETE</option></select></div>
+        <div><label for="rota">Rota simulada</label><input id="rota" type="text" readonly value="/api/vagas/104"></div>
+        <button>Enviar requisição</button>
+      </div>
+      <div class="request-options">
+        <div><label for="perfil">Autorização da requisição</label><select id="perfil"><option value="anonimo">Sem credenciais</option><option value="invalido">Senha incorreta</option><option value="operador">Operador</option><option value="admin">Administrador</option></select></div>
+        <div id="payload" hidden><label for="remuneracao">Remuneração no corpo JSON</label><input type="number" min="0" max="1000000" step="0.01" value="2600" id="remuneracao" required disabled></div>
+        <div><label for="esperado">Asserção de status HTTP</label><select id="esperado"><option value="">Sem asserção</option><option>200</option><option>201</option><option>204</option><option>401</option><option>403</option><option>404</option><option>409</option></select></div>
+      </div>
+      <pre id="corpo-requisicao" hidden></pre>
+    </form>
+  </div>
+  <div class="workbench-head"><strong>Resposta</strong><span id="api-status" role="status">Aguardando requisição</span></div>
+  <div class="workbench-body">
+    <pre id="corpo-resposta">Envie uma requisição para ver a resposta.</pre>
+    <p id="assericao" class="feedback" role="status"></p>
+    <div class="state-row"><p id="vaga-status"></p><button type="button" class="secondary" id="api-reset">Restaurar ambiente</button></div>
+    <details><summary>Histórico de requisições</summary><ol id="api-historico"></ol></details>
+  </div>
+</div>
+<details><summary>Pergunta para a turma</summary><p>Se operador e administrador usam senhas válidas, por que apenas um exclui a vaga? Peça que distingam <code>401</code>, credenciais ausentes ou inválidas neste exemplo, de <code>403</code>, perfil sem permissão.</p></details>
+</section>
+<section class="panel lab" id="hash">
+<h2>Hash de senha</h2><p>Os dois hashes abaixo foram gerados previamente com BCrypt para a mesma senha fictícia, <code>VagaDemo2026</code>. Alterne o salt para comparar os resultados e escolha uma senha de teste para simular a conferência.</p>
+<div class="actions"><button type="button" class="secondary" id="novo-salt">Alternar salt</button></div>
+<pre id="hash-status" aria-live="polite"></pre>
+<form id="hash-form"><label for="senha">Senha de teste</label><select id="senha"><option>VagaDemo2026</option><option>OutraSenha456</option></select><div class="actions"><button>Conferir senha</button></div></form>
+<p class="feedback" id="hash-feedback" role="status">Escolha uma senha e confira a correspondência.</p>
+<details><summary>Pergunta para a turma</summary><p>Se a senha é a mesma, o que explica os dois hashes diferentes? Cada exemplo usa um salt diferente, incluído no próprio hash.</p></details>
+</section>
+<section class="panel lab" id="refatoracao">
+<h2>Clean Code</h2><p>Compare duas versões de um cadastro simplificado em Java. Selecione uma versão e rode a simulação dos testes para conferir o comportamento.</p>
+<div class="actions" role="group" aria-label="Versão do exemplo"><button type="button" class="secondary" id="antes" aria-pressed="true">Antes</button><button type="button" class="secondary" id="depois" aria-pressed="false">Depois</button></div>
+<div class="workbench"><div class="workbench-head"><strong>VagaService.java</strong><span>Visualização do código</span></div><pre id="codigo"></pre></div>
+<div class="actions"><button type="button" id="testar">Rodar suíte de testes</button></div><div id="testes" class="feedback" aria-live="polite">A suíte verifica título válido, título vazio e remuneração negativa.</div>
+<form id="teste-personalizado"><div class="request-options"><div><label for="titulo-teste">Título para teste manual</label><input id="titulo-teste" type="text" value="Suporte técnico"></div><div><label for="valor-teste">Remuneração para teste</label><input id="valor-teste" type="number" value="2400" required step="1"></div><div><label for="resultado-teste">Resultado esperado</label><select id="resultado-teste"><option value="true">Aceito</option><option value="false">Recusado</option></select></div></div><div class="actions"><button class="secondary">Executar teste manual</button></div><p id="retorno-teste" class="feedback" role="status"></p></form>
+<details><summary>Pergunta para a turma</summary><p>Qual versão deixa mais claro onde a validação ocorre? Quais resultados dos testes precisam permanecer iguais após a refatoração?</p></details>
+</section>
+<section class="panel lab" id="git">
+<h2>Registro das alterações no Git</h2><p>Simule o que faria depois de rodar os testes. Revise os arquivos, selecione as alterações e registre o commit.</p>
+<div class="actions"><button class="secondary" type="button" data-git="0">git status</button><button class="secondary" type="button" data-git="1">git add</button><button class="secondary" type="button" data-git="2">git commit</button><button class="secondary" type="button" id="git-reset">Reiniciar</button></div>
+<p id="git-status" class="feedback" role="status">Aguardando comando.</p>
+</section>
+<a class="button" href="desafio.html">Começar o desafio <span aria-hidden="true">↗</span></a>
+</div></div>
+<noscript>Ative o JavaScript para executar as simulações.</noscript>
+</main>
+<footer class="wrap footer"><span>Lab de Segurança Web</span><span>Professor Rodrigo Moreira</span></footer>
+</body></html>
